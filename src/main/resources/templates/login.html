@@ -5,15 +5,19 @@
     <title>Login</title>
 </head>
 <body>
+<div th:if ="${errorMessage}">
+    <p>Invalid username or password.</p>
+</div>
 <h2>Login</h2>
-<form method ="post" action="/perform_login">
+<form method ="post" action="/login">
   <label for="username">Username:</label>
   <input type="text" id="username" name="username" required>
   <br>
   <label for="password">Password:</label>
   <input type="password" id="password" name="password" required>
   <br>
-  <button type="submit">Login</button>
+  <button type="submit">login</button>
+
 </form>
 </body>
 </html>

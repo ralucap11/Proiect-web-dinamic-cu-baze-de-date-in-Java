@@ -8,6 +8,16 @@
     </title>
 </header>
 <body>
+<form method="post" action="/utilizatori">
+    <label for="id_utilizatori"></label><br>
+    <input type="text" id="id_utilizatori" name="id"/><br>
+    <label for="nume"></label><br>
+    <input type="text" id="nume" name="nume"/><br>
+     <label for="parola"></label><br>
+        <input type="text" id="parola" name="parola"/><br>
+
+</form>
+<a href="/login">Login</a>
 <h3 th:text="${str}"/>
 <table class="table table-striped table-bordered">
     <tr>
