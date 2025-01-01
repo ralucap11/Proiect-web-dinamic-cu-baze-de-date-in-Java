@@ -7,9 +7,7 @@ import jakarta.persistence.*;
 public class Utilizatori {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_utilizator")
     private int id_utilizator;
-
     private String nume;
     private String utilizator;
     private String parola;
@@ -18,14 +16,15 @@ public class Utilizatori {
     public Utilizatori() {
     }
 
-    public Utilizatori(String nume, String utilizator, String parola, String rolul) {
+    public Utilizatori(int id_utilizator,String nume, String utilizator, String parola, String rolul) {
+    this.id_utilizator = id_utilizator;
         this.nume = nume;
         this.utilizator = utilizator;
         this.parola = parola;
         this.rolul = rolul;
     }
 
-    // Getter și Setter pentru toate câmpurile
+
     public int getId_utilizator() {
         return id_utilizator;
     }

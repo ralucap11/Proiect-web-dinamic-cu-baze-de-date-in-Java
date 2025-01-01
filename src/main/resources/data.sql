@@ -6,3 +6,4 @@ INSERT INTO utilizatori (nume, utilizator, parola, rolul) VALUES
 INSERT INTO utilizatori (nume, utilizator, parola, rolul) VALUES
     ('Maria Avadanei', 'mariavadanei', '$2a$10$JHU3r5w6lksn97VrjRKwqOwXItyzS5h1Lh8D5nl7d/xuT6FcB9T9W', 'ROLE_EDITOR'); -- parola: 'editor123'
 
+
