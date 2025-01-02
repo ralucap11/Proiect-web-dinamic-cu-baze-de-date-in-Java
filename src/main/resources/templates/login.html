@@ -1,15 +1,16 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
 <body>
-<div th:if ="${errorMessage}">
-    <p>Invalid username or password.</p>
-</div>
 <h2>Login</h2>
-<form method ="post" action="/login">
+<div th:if="${param.error}" style="color: red;">
+    <p>Eroare la autentificare</p>
+</div>
+<form th:action="@{/login}" method = "post">
   <label for="username">Username:</label>
   <input type="text" id="username" name="username" required>
   <br>
