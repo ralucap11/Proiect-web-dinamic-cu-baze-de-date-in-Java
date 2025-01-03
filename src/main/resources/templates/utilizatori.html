@@ -9,17 +9,34 @@
 </header>
 <body>
 <h3 th:text="${str}"/>
-<h2 th:text="${loggedName}"/>
+<h2 th:text="${welcomeMessage}"/>
 <table class="table table-striped table-bordered">
     <tr>
-        <th>Id</th>
-        <th>Nume</th>
-        <th>Rolul</th>
+        <th>Nr_inmatriculre</th>
+        <th>Marca</th>
+        <th>Model</th>
+        <th>Culoare</th>
+        <th>An</th>
+        <th>Capacitate Cilindrica</th>
+        <th>Combustibil</th>
+        <th>Putere</th>
+         <th>Cuplu</th>
+         <th>Volum</th>
+         <th>Pret</th>
     </tr>
-    <tr th:each="c : ${utilizatori}">
-        <td th:text="${c.getId_utilizator()}"></td>
-        <td th:text="${c.getNume()}"></td>
-        <td th:text="${c.getRolul()}"></td>
+    <tr th:each="c : ${masini}">
+        <td th:text="${c.getNrInmatriculare()}"></td>
+        <td th:text="${c.getMarca()}"></td>
+        <td th:text="${c.getModelul()}"></td>
+        <td th:text="${c.getCuloarea()}"></td>
+        <td th:text="${c.getAn()}"></td>
+        <td th:text="${c.getCapacitate_cilindrica()}"></td>
+        <td th:text="${c.getCombustibil()}"></td>
+        <td th:text="${c.getPutere()}"></td>
+        <td th:text="${c.getCuplu() }"></td>
+        <td th:text="${c.getVolum() }"></td>
+        <td th:text="${c.getPret() }"></td>
+
     </tr>
 </table>
 <form th:action="@{/logout}" method="post">

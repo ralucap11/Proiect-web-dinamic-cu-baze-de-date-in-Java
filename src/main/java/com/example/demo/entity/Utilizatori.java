@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "utilizatori")
 public class Utilizatori {
@@ -13,6 +15,18 @@ public class Utilizatori {
     private String parola;
     private String rolul;
 
+
+   @OneToMany(mappedBy = "utilizator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Masini> masini;
+
+
+    public List<Masini> getMasini() {
+        return masini;
+    }
+
+    public void setMasini(List<Masini> masini) {
+        this.masini = masini;
+    }
     public Utilizatori() {
     }
 
