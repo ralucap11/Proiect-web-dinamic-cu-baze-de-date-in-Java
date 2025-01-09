@@ -38,15 +38,17 @@ public class MasiniRestController {
        return "redirect:/utilizatori";
     }
 
-      @PostMapping("/operatii")
-    public String operatii(Model model,String ISBN,String titlul, String autorul) {
-    System.out.println("ISBN: " + ISBN);
-    System.out.println("Ttilul: " + titlul);
-    System.out.println("Autorul: " + autorul);
-    String s = "Lista cartilor preluate prin repository";
-    model.addAttribute("str", s);
-    model.addAttribute("lista", repository.findAll());
-    return "carti";
 
-    }
+
+//      @PostMapping("/operatii")
+//    public String operatii(Model model,String ISBN,String titlul, String autorul) {
+//    System.out.println("ISBN: " + ISBN);
+//    System.out.println("Ttilul: " + titlul);
+//    System.out.println("Autorul: " + autorul);
+//    String s = "Lista cartilor preluate prin repository";
+//    model.addAttribute("str", s);
+//    model.addAttribute("lista", repository.findAll());
+//    return "carti";
+//
+//    }
 }

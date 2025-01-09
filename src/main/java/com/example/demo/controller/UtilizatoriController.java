@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UtilizatoriController {
@@ -28,11 +29,18 @@ public String welcomePage(Model model) {
 }
 
     private String  loadUtilizatori(Model model) {
-
         model.addAttribute("str", "Utilizatori");
         model.addAttribute("masini", masiniRepository.findAll());
         return "utilizatori";
     }
+
+       @GetMapping("/logout")
+       public String logout(RedirectAttributes redirectAttributes){
+       redirectAttributes.addFlashAttribute("logoutMessage" + "You have been logged out.");
+       return "redirect:/login";
+
+       }
+
 
 
 }
