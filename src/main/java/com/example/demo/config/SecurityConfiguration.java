@@ -9,9 +9,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.List;
 
@@ -25,24 +25,27 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest().authenticated()
-                )
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .permitAll()
-                        .failureUrl("/login?error=true")
-                        .defaultSuccessUrl("/utilizatori", true)
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
-                        .permitAll()
-                );
+            .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/editor/**").hasRole("EDITOR") // Pentru editori
+                    .requestMatchers("/user/**").hasAnyRole("USER", "EDITOR") // Pentru utilizatori și editori
+                    .anyRequest().authenticated() // Orice altceva trebuie autentificat
+            )
+            .formLogin(form -> form
+                    .loginPage("/login")
+                    .permitAll()
+                    .failureUrl("/login?error=true")
+                    .defaultSuccessUrl("/utilizatori", true)
+            )
+            .logout(logout -> logout
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login?logout")
+                    .invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID")
+                    .permitAll()
+            );
+
         return http.build();
     }
 
@@ -56,7 +59,7 @@ public class SecurityConfiguration {
             return new org.springframework.security.core.userdetails.User(
                     utilizatori.getUtilizator(),
                     utilizatori.getParola(),
-                    List.of(new SimpleGrantedAuthority(utilizatori.getRolul()))
+                    List.of(new SimpleGrantedAuthority("ROLE_" + utilizatori.getRolul())) // prefixare cu "ROLE_"
             );
         };
     }
