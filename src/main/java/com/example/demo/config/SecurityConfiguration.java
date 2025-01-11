@@ -59,7 +59,7 @@ public class SecurityConfiguration {
             return new org.springframework.security.core.userdetails.User(
                     utilizatori.getUtilizator(),
                     utilizatori.getParola(),
-                    List.of(new SimpleGrantedAuthority("ROLE_" + utilizatori.getRolul())) // prefixare cu "ROLE_"
+                    List.of(new SimpleGrantedAuthority(utilizatori.getRolul()))
             );
         };
     }
