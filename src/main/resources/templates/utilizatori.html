@@ -11,7 +11,7 @@
 <h2 th:text="${welcomeMessage}"/>
 
 <!-- sectiunea pentru toti utilizatorii-->
-<table class="table table-striped table-bordered"  style="width: 50%; margin: 0 auto;">
+<table class="table table-striped table-bordered" style="width: 50%; margin: 0 auto;">
     <tr>
         <th>Numar inmatriculre</th>
         <th>Marca</th>
@@ -40,29 +40,30 @@
 
     </tr>
 </table>
-<form th:action="@{/logout}" method="post">
-    <button type="submit">Logout</button>
-</form>
+
 <form th:action="@{/search}" method="get">
-    <div class="search">
-     <input type = "text" name ="marca" placeholder="marca">
-      <input type = "text" name ="culoare" placeholder="culoare">
-       <input type = "text" name ="combustibil" placeholder="combustibil">
-        <button type = "submit">Filtreaza</button>
+    <div class="search text-center">
+        <input type="text" name="marca" placeholder="marca">
+        <input type="text" name="culoare" placeholder="culoare">
+        <input type="text" name="combustibil" placeholder="combustibil">
+        <button type="submit">Filtreaza</button>
     </div>
+</form>
+<form th:action="@{/logout}" method="post" class ="text-center">
+    <button type="submit">Logout</button>
 </form>
 
 
 <!--sectiunea pentru editori -->
 <div sec:authorize="hasRole('ROLE_EDITOR')">
     <form th:action="@{/editor}" method="post">
-        <table class="table table-bordered table-striped"  style="width: 50%; margin: 0 auto;">
+        <table class="table table-bordered table-striped" style="width: 50%; margin: 0 auto;">
             <tr>
-                <td><label for="nrInmatriculare">Număr Înmatriculare:</label></td>
+                <td><label for="nrInmatriculare">Numar Inmatriculare:</label></td>
                 <td><input type="text" id="nrInmatriculare" name="nrInmatriculare" class="form-control"></td>
             </tr>
             <tr>
-                <td><label for="marca">Marcă:</label></td>
+                <td><label for="marca">Marca:</label></td>
                 <td><input type="text" id="marca" name="marca" class="form-control"></td>
             </tr>
             <tr>
@@ -74,21 +75,23 @@
                 <td><input type="text" id="culoarea" name="culoarea" class="form-control"></td>
             </tr>
             <tr>
-                <td><label for="an">An fabricație:</label></td>
+                <td><label for="an">An fabricatie:</label></td>
                 <td><input type="number" id="an" name="an" class="form-control"></td>
             </tr>
             <tr>
-                <td><label for="capacitate_cilindrica">Capacitate cilindrică:</label></td>
-                <td><input type="number" id="capacitate_cilindrica" name="capacitate_cilindrica" class="form-control"></td>
+                <td><label for="capacitate_cilindrica">Capacitate cilindrica:</label></td>
+                <td><input type="number" id="capacitate_cilindrica" name="capacitate_cilindrica" class="form-control">
+                </td>
             </tr>
             <tr>
                 <td><label for="combustibil">Combustibil:</label></td>
                 <td>
                     <select id="combustibil" name="combustibil" class="form-select">
-                        <option value="Benzina">Benzină</option>
-                        <option value="Motorina">Motorină</option>
-                        <option value="Electric">Electric</option>
+                        <option value="Benzina">Benzina</option>
+                        <option value="Motorina">Motorina</option>
+                        <option value="Diesel">Diesel</option>
                         <option value="Hibrid">Hibrid</option>
+                        <option value="Electric">Hibrid</option>
                     </select>
                 </td>
             </tr>
@@ -105,12 +108,12 @@
                 <td><input type="number" id="volum" name="volum" class="form-control"></td>
             </tr>
             <tr>
-                <td><label for="pret">Preț:</label></td>
+                <td><label for="pret">Pret:</label></td>
                 <td><input type="number" id="pret" name="pret" class="form-control"></td>
             </tr>
             <tr>
                 <td colspan="2" class="text-center">
-                    <button type="submit" name="action" value="add" >Adăugare</button>
+                    <button type="submit" name="action" value="add">Adăugare</button>
                     <button type="submit" name="action" value="edit">Modificare</button>
                     <button type="submit" name="action" value="delete">Ștergere</button>
                 </td>

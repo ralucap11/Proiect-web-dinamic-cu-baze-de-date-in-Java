@@ -11,8 +11,8 @@ INSERT INTO utilizatori (nume, utilizator, parola, rolul) VALUES
     an, capacitate_cilindrica, combustibil,
     putere, cuplu, volum, pret
 ) VALUES
-    ('AB-123-XYZ', 1, 'Toyota', 'Corolla', 'Alb', 2020, 1798, 'Benzina', 140, 180, 450, 20000.00),
-    ('BC-456-UVW', 2, 'Volkswagen', 'Golf', 'Negru', 2019, 1984, 'Diesel', 150, 300, 380, 22000.00),
-    ('CD-789-RST', 1, 'Ford', 'Focus', 'Rosu', 2021, 1499, 'Hibrid', 120, 200, 370, 25000.00),
-    ('DE-101-OPQ', 2, 'BMW', 'X5', 'Albastru', 2018, 2993, 'Diesel', 250, 560, 650, 55000.00),
-    ('EF-202-NML', 1, 'Audi', 'A4', 'Gri', 2022, 1984, 'Benzina', 190, 320, 460, 45000.00);
+    ('TM-12-AAA', 1, 'Toyota', 'Corolla', 'Alb', 2020, 1798, 'Benzina', 140, 180, 450, 20000.00),
+    ('TM-14-CSS', 2, 'Volkswagen', 'Golf', 'Negru', 2019, 1984, 'Diesel', 150, 300, 380, 22000.00),
+    ('TM-14-ZYA', 1, 'Ford', 'Focus', 'Rosu', 2021, 1499, 'Hibrid', 120, 200, 370, 25000.00),
+    ('TM-20-RRR', 2, 'BMW', 'X5', 'Albastru', 2018, 2993, 'Diesel', 250, 560, 650, 55000.00),
+    ('TM-30-XZY', 1, 'Audi', 'A4', 'Gri', 2022, 1984, 'Benzina', 190, 320, 460, 45000.00);

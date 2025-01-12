@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.Utilizatori;
 import com.example.demo.repository.MasiniRepository;
 import com.example.demo.repository.UtilizatoriRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,10 @@ public class UtilizatoriController {
 public String welcomePage(Model model) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     String username = authentication.getName();
-    loadUtilizatori(model);
-    model.addAttribute("welcomeMessage", "Bine ai venit, " + username + "!");
+        Utilizatori utilizator = repository.findByUtilizator(username);
+        String welcomeMessage = "Bine ai venit, " + utilizator.getNume() + "!";
+      loadUtilizatori(model);
+    model.addAttribute("welcomeMessage", welcomeMessage);
     return "utilizatori";
 }
 

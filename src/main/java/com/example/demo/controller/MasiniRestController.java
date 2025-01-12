@@ -1,8 +1,14 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Masini;
+import com.example.demo.entity.Utilizatori;
 import com.example.demo.repository.MasiniRepository;
+import com.example.demo.repository.UtilizatoriRepository;
+import com.example.demo.service.UtilizatoriService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,19 +18,22 @@ public class MasiniRestController {
     @Autowired
     private MasiniRepository repository;
 
+    @Autowired
+    private UtilizatoriRepository utilizatoriRepository;
+
     @PostMapping("/editor")
     public String handleEditorActions(@RequestParam String action,
                                       @RequestParam(required = false) String nrInmatriculare,
                                       @RequestParam(required = false) String marca,
                                       @RequestParam(required = false) String modelul,
                                       @RequestParam(required = false) String culoarea,
-                                      @RequestParam(required = false) int an,
-                                      @RequestParam(required = false) int capacitate_cilindrica,
+                                      @RequestParam(required = false, defaultValue = "0") int an,
+                                      @RequestParam(required = false, defaultValue = "0") int capacitate_cilindrica,
                                       @RequestParam(required = false) String combustibil,
-                                      @RequestParam(required = false) int putere,
-                                      @RequestParam(required = false) int cuplu,
-                                      @RequestParam(required = false) int volum,
-                                      @RequestParam(required = false) int pret,
+                                      @RequestParam(required = false, defaultValue = "0") int putere,
+                                      @RequestParam(required = false, defaultValue = "0") int cuplu,
+                                      @RequestParam(required = false, defaultValue = "0") int volum,
+                                      @RequestParam(required = false, defaultValue = "0") int pret,
                                       Model model) {
         System.out.println("action: " + action);
         System.out.println("nrInmatriculare: " + nrInmatriculare);
@@ -38,12 +47,17 @@ public class MasiniRestController {
         System.out.println("cuplu" + cuplu);
         System.out.println("volum" + volum);
         System.out.println("pret" + pret);
-
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); //
+        String username = authentication.getName(); //extrage username ul care este logat
+        System.out.println("username "+username);
+        Utilizatori loggedIn = utilizatoriRepository.findByUtilizator(username);
         switch (action) {
             case "add":
                 Masini masinaNoua = new Masini();
+                int id = loggedIn.getId_utilizator();
+                System.out.println("id "+id);
                 masinaNoua.setNrInmatriculare(nrInmatriculare);
-                masinaNoua.setId_utilizator(1);
+                masinaNoua.setId_utilizator(id);
                 masinaNoua.setMarca(marca);
                 masinaNoua.setModelul(modelul);
                 masinaNoua.setCuloarea(culoarea);
@@ -55,16 +69,18 @@ public class MasiniRestController {
                 masinaNoua.setVolum(volum);
                 masinaNoua.setPret(pret);
                 repository.save(masinaNoua);
-                return "redirect:/utilizatori"; // Add operation view
+                return "redirect:/utilizatori";
+
+
             case "edit":
                 Masini existingMasina = repository.findById(nrInmatriculare)
                         .orElseThrow(() -> new IllegalArgumentException("Masina nu exista: " + nrInmatriculare));
-                existingMasina.setMarca(marca); // Update marca
-                repository.save(existingMasina); // Save changes
-                return "redirect:/utilizatori"; // Edit operation view
+                existingMasina.setMarca(marca);
+                repository.save(existingMasina);
+                return "redirect:/utilizatori";
             case "delete":
                 repository.deleteById(nrInmatriculare);
-                return "redirect:/utilizatori"; // Redirect after delete
+                return "redirect:/utilizatori";
             default:
                 throw new IllegalArgumentException("Actiune necunoscuta: " + action);
         }
@@ -88,9 +104,23 @@ public class MasiniRestController {
 
     //stergere masina
     @PostMapping("/editor/delete")
-    public String deleteMasini(@RequestParam String nr_inmatriculare) {
-        repository.deleteById(nr_inmatriculare);
-        return "utilizatori";
+    public String deleteMasini(@RequestParam String nrInmatriculare) {
+        if (repository.existsById(nrInmatriculare)) {
+            repository.deleteById(nrInmatriculare);
+        } else {
+            throw new IllegalArgumentException("Mașina cu numarul de inmatriculare " + nrInmatriculare + " nu exista!");
+        }
+        return "redirect:/utilizatori";
     }
 
+
+//    public int getUtilizatoriById_utilizator() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication != null && authentication.isAuthenticated()) {
+//            User loggedUser = (User) authentication.getPrincipal();
+//            int id_utilizator = Integer.parseInt(loggedUser.getUsername()); // Se presupune că username-ul este ID-ul utilizatorului
+//            return id_utilizator;
+//        }
+//        return -1;
+//    }
 }

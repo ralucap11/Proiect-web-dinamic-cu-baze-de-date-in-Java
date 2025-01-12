@@ -28,9 +28,9 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/editor/**").hasRole("EDITOR") // Pentru editori
-                    .requestMatchers("/user/**").hasAnyRole("USER", "EDITOR") // Pentru utilizatori și editori
-                    .anyRequest().authenticated() // Orice altceva trebuie autentificat
+                    .requestMatchers("/editor/**").hasRole("EDITOR") //pentru editori
+                    .requestMatchers("/user/**").hasAnyRole("USER", "EDITOR") //pentru utilizatori si editori
+                    .anyRequest().authenticated() //Orice altceva trebuie autentificat
             )
             .formLogin(form -> form
                     .loginPage("/login")
